@@ -17,10 +17,11 @@ module.exports = function () {
       connection
         .query('SELECT * FROM CONTACTS')
         .then(data => {
-          res.json({ data: data });
+          res.json({ success: true, data: data });
         })
         .catch(error => {
-          res.json({ data: [] });
+          res.status(500);
+          res.json({ success: false, message: error });
         });
     });
   }
@@ -38,6 +39,7 @@ module.exports = function () {
           res.json({ data: data, success: true });
         })
         .catch(error => {
+          res.status(500);
           res.json({ success: false, message: error });
         });
     });
@@ -47,20 +49,21 @@ module.exports = function () {
     let sSQL = 'INSERT INTO CONTACTS ' +
       '([NAME], [POSITION], [OFFICE], [EXTN], [START_DATE], [SALARY]) VALUES (' +
       '\'' + req.body.name + '\',' +
-    '\'' + req.body.position + '\',' +
-    '\'' + req.body.office + '\',' +
-    '\'' + req.body.extn + '\',' +
-    '\'' + req.body.startDate + '\',' +
+      '\'' + req.body.position + '\',' +
+      '\'' + req.body.office + '\',' +
+      '\'' + req.body.extn + '\',' +
+      '\'' + req.body.startDate + '\',' +
       + req.body.salary + ');';
 
-    dbconnection(function(connection){
+    dbconnection(function (connection) {
       connection
         .execute(sSQL)
-        .then(data=> {
-          res.json({data: data, success: true})
+        .then(data => {
+          res.json({ data: data, success: true })
         })
         .catch(error => {
-          res.json({success: false, message: error});
+          res.status(500);
+          res.json({ success: false, message: error });
         });
     });
 

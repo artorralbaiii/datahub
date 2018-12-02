@@ -2,7 +2,8 @@ var Emitter = require('events').EventEmitter;
 var util = require('util');
 var View = require('./view');
 const headerTitleMapping = {
-    main: 'Main Page'
+    main: 'Main Page',
+    profile: 'Profile Setup'
 };
 
 var App = function () {
