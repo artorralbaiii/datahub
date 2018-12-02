@@ -5,6 +5,7 @@ var dbconnection = require('./dbconnection.js');
 module.exports = function () {
   var controller = {
     getAll: getAll,
+    newRecord: newRecord,
     updateRecords: updateRecords
   };
 
@@ -19,7 +20,6 @@ module.exports = function () {
           res.json({ data: data });
         })
         .catch(error => {
-          console.error(error);
           res.json({ data: [] });
         });
     });
@@ -31,8 +31,6 @@ module.exports = function () {
     let ids = arrIds.join(',');
     let sSQL = 'UPDATE CONTACTS SET [' + req.body.field + ']=\'' + req.body.value + '\' WHERE ID IN (' + ids + ');';
 
-    console.log(sSQL);
-
     dbconnection(function (connection) {
       connection
         .execute(sSQL)
@@ -40,9 +38,32 @@ module.exports = function () {
           res.json({ data: data, success: true });
         })
         .catch(error => {
-          res.json({ success: true, message: error });
+          res.json({ success: false, message: error });
         });
     });
+  }
+
+  function newRecord(req, res, next) {
+    let sSQL = 'INSERT INTO CONTACTS ' +
+      '([NAME], [POSITION], [OFFICE], [EXTN], [START_DATE], [SALARY]) VALUES (' +
+      '\'' + req.body.name + '\',' +
+    '\'' + req.body.position + '\',' +
+    '\'' + req.body.office + '\',' +
+    '\'' + req.body.extn + '\',' +
+    '\'' + req.body.startDate + '\',' +
+      + req.body.salary + ');';
+
+    dbconnection(function(connection){
+      connection
+        .execute(sSQL)
+        .then(data=> {
+          res.json({data: data, success: true})
+        })
+        .catch(error => {
+          res.json({success: false, message: error});
+        });
+    });
+
   }
 
 }

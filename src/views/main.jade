@@ -44,7 +44,7 @@ div(class="modal fade" id="dlg-add-record" tabindex="-1" role="dialog" aria-labe
         div(class="modal-content")
             div(class="modal-content")
                 div(class="modal-header")
-                    h5(class="modal-title" id="dlg-add-record-lbl") Add Record
+                    h5(class="modal-title" id="dlg-add-record-lbl") New Record
                     button(type="button" class="close" data-dismiss="modal" aria-label="Close")
                         span(aria-hidden="true") &times;
                 div(class="modal-body")
@@ -54,23 +54,29 @@ div(class="modal fade" id="dlg-add-record" tabindex="-1" role="dialog" aria-labe
                                 div(class="form-group")
                                     label(for="lbl-name") Name
                                     input(type="text" class="form-control form-control-sm" id="fld-name" placeholder="Enter Name...")
+                                    small(id="fld-name-help" class="form-text text-danger d-none") Please enter name.
                                 div(class="form-group") 
                                     label(for="fld-office") Office
                                     input(type="text" class="form-control form-control-sm" id="fld-office" placeholder="Enter Office...")
+                                    small(id="fld-office-help" class="form-text text-danger d-none") Please enter office.
                                 div(class="form-group") 
                                     label(for="fld-startdate") Start Date
                                     input(type="date" class="form-control form-control-sm" id="fld-startdate" name="fld-startdate" placeholder="YYYY-MM-DD" required pattern="(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])/(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])/(?:30))|(?:(?:0[13578]|1[02])-31))" title="Enter a date in this format YYYY/MM/DD")
+                                    small(id="fld-startdate-help" class="form-text text-danger d-none") Please enter start date.
                             div(class="col-md-6")
                                 div(class="form-group") 
                                     label(for="fld-position") Position
                                     input(type="text" class="form-control form-control-sm" id="fld-position" placeholder="Enter Position...")
+                                    small(id="fld-position-help" class="form-text text-danger d-none") Please enter position.
                                 div(class="form-group")
                                     label(for="lbl-extn") Extn
                                     input(type="text" class="form-control form-control-sm" id="fld-extn" placeholder="Enter Extn...")
+                                    small(id="fld-extn-help" class="form-text text-danger d-none") Please enter extension.
                                 div(class="form-group")
                                     label(for="lbl-salary") Salary
                                     input(type="number" class="form-control form-control-sm" id="fld-salary" placeholder="Enter Salary...")
+                                    small(id="fld-salary-help" class="form-text text-danger d-none") Please enter salary.
                 div(class="modal-footer")
                     button(type="button" class="btn btn-secondary" data-dismiss="modal") Close
-                    button(id="btn-save" type="button" class="btn btn-primary" data-dismiss="modal") Save
+                    button(id="btn-save" type="button" class="btn btn-primary" ) Save
  

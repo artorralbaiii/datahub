@@ -54,14 +54,9 @@ $(document).ready(function () {
     table
         .on('select.dt', function (e, dt, type, indexes) {
             selectedRecords.push(table.rows(indexes).data().toArray()[0]);
-            console.log(selectedRecords);
-            // var rowData = table.rows(indexes).data().toArray();
-            // events.prepend('<div><b>' + type + ' selection</b> - ' + JSON.stringify(rowData) + '</div>');
         })
         .on('deselect.dt', function (e, dt, type, indexes) {
             selectedRecords.pop(table.rows(indexes).data().toArray()[0])
-            // var rowData = table.rows(indexes).data().toArray();
-            // events.prepend('<div><b>' + type + ' <i>de</i>selection</b> - ' + JSON.stringify(rowData) + '</div>');
         });
 
     // Populate Options in 'Field' dropdown.
@@ -71,8 +66,6 @@ $(document).ready(function () {
 
     // Click event for Update Button
     $('#btn-update').bind('click', function () {
-
-
         $('#spinner').show();
         var formData = {
             field: '',
@@ -85,12 +78,104 @@ $(document).ready(function () {
         formData.rows = selectedRecords;
 
         $.post('http://localhost:3000/data', formData, function (data) {
-            console.log(data);
-            table.rows().deselect();
-            selectedRecords = [];
-            table.ajax.reload();
+            if (data.success) {
+                table.rows().deselect();
+                selectedRecords = [];
+                table.ajax.reload();
+            } else {
+                $('#spinner').hide();
+                alert(data.message.message);
+            }
         });
 
     });
+
+    $('#btn-save').bind('click', function (e) {
+
+        if (validateForm()) {
+            e.preventDefault();
+            return;
+        }
+
+        $('#spinner').show();
+        var formData = {
+            name: $('#fld-name').val(),
+            position: $('#fld-name').val(),
+            office: $('#fld-office').val(),
+            extn: $('#fld-extn').val(),
+            startDate: $('#fld-startdate').val(),
+            salary: $('#fld-salary').val()
+        };
+
+        $.post('http://localhost:3000/data/new', formData, function (data) {
+            if (data.success) {
+                table.ajax.reload();
+                $('#dlg-add-record').modal('hide');
+            } else {
+                $('#spinner').hide();
+                alert('ERROR: ' + data.message.process.message);
+            }
+        });
+    });
+
+    function validateForm() {
+        let validate = false;
+
+        if ($('#fld-name').val().trim() === '') {
+            $('#fld-name-help').removeClass('d-none');
+            validate = true;
+        } else {
+            if (!$('#fld-name-help').hasClass('d-none')) {
+                $('#fld-name-help').addClass('d-none');
+            }
+        }
+
+        if ($('#fld-position').val().trim() === '') {
+            $('#fld-position-help').removeClass('d-none');
+            validate = true;
+        } else {
+            if (!$('#fld-position-help').hasClass('d-none')) {
+                $('#fld-position-help').addClass('d-none');
+            }
+        }
+
+        if ($('#fld-office').val().trim() === '') {
+            $('#fld-office-help').removeClass('d-none');
+            validate = true;
+        } else {
+            if (!$('#fld-office-help').hasClass('d-none')) {
+                $('#fld-office-help').addClass('d-none');
+            }
+        }
+
+        if ($('#fld-extn').val().trim() === '') {
+            $('#fld-extn-help').removeClass('d-none');
+            validate = true;
+        } else {
+            if (!$('#fld-extn-help').hasClass('d-none')) {
+                $('#fld-extn-help').addClass('d-none');
+            }
+        }
+
+        if ($('#fld-startdate').val().trim() === '') {
+            $('#fld-startdate-help').removeClass('d-none');
+            validate = true;
+        } else {
+            if (!$('#fld-startdate-help').hasClass('d-none')) {
+                $('#fld-startdate-help').addClass('d-none');
+            }
+        }
+
+        if ($('#fld-salary').val().trim() === '') {
+            $('#fld-salary-help').removeClass('d-none');
+            validate = true;
+        } else {
+            if (!$('#fld-salary-help').hasClass('d-none')) {
+                $('#fld-salary-help').addClass('d-none');
+            }
+        }
+
+        return validate;
+    }
 
 });

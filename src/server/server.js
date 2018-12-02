@@ -11,6 +11,7 @@ app.use(bodyParser.json());
 
 app.get('/data', data.getAll);
 app.post('/data', data.updateRecords);
+app.post('/data/new', data.newRecord);
 
 app.listen(port, () => {
     console.log('Express server is listening on port ' + port);
