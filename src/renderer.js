@@ -83,6 +83,7 @@ function loadMain() {
     app.emit('view-selected', 'main');
 
     var columns = [
+        { 'data': 'ID' },
         { 'data': 'InterfaceId' },
         { 'data': 'TableName' },
         { 'data': 'TableDescription' },
@@ -95,6 +96,9 @@ function loadMain() {
         { 'data': 'OutputLength' },
         { 'data': 'Notation' }
     ];
+
+    
+
     var selectedRecords = [];
 
     var table = $('#data-table').DataTable({
@@ -140,7 +144,7 @@ function loadMain() {
         });
 
     // Populate Options in 'Field' dropdown.
-    $.each(columns, function (key, value) {
+    $.each(columns.slice(1), function (key, value) {
         $('#fld-field').prepend('<option value="' + value.data + '">' + value.data + '</option>');
     });
 
@@ -150,11 +154,13 @@ function loadMain() {
         var formData = {
             field: '',
             value: '',
+            comments: '',
             rows: []
         };
 
         formData.field = $('#fld-field').val();
         formData.value = $('#fld-newvalue').val();
+        formData.comments = $('#fld-comments').val();
         formData.rows = selectedRecords;
 
         $.post('http://localhost:3000/data', formData)
