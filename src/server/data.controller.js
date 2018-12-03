@@ -15,7 +15,7 @@ module.exports = function () {
 
     dbconnection(function (connection) {
       connection
-        .query('SELECT * FROM CONTACTS')
+        .query('SELECT * FROM INTERFACES')
         .then(data => {
           res.json({ success: true, data: data });
         })
@@ -30,7 +30,7 @@ module.exports = function () {
 
     let arrIds = req.body.rows.map(obj => obj.ID);
     let ids = arrIds.join(',');
-    let sSQL = 'UPDATE CONTACTS SET [' + req.body.field + ']=\'' + req.body.value + '\' WHERE ID IN (' + ids + ');';
+    let sSQL = 'UPDATE INTERFACES SET [' + req.body.field + ']=\'' + req.body.value + '\' WHERE ID IN (' + ids + ');';
 
     dbconnection(function (connection) {
       connection
@@ -46,15 +46,21 @@ module.exports = function () {
   }
 
   function newRecord(req, res, next) {
-    let sSQL = 'INSERT INTO CONTACTS ' +
-      '([NAME], [POSITION], [OFFICE], [EXTN], [START_DATE], [SALARY]) VALUES (' +
-      '\'' + req.body.name + '\',' +
-      '\'' + req.body.position + '\',' +
-      '\'' + req.body.office + '\',' +
-      '\'' + req.body.extn + '\',' +
-      '\'' + req.body.startDate + '\',' +
-      + req.body.salary + ');';
+    let sSQL = 'INSERT INTO INTERFACES ' +
+      '([InterfaceId], [TableName], [TableDescription], [Subtype], [FieldName], [FieldDescription], [DataType], [Length], [OutputType], [OutputLength], [Notation]) VALUES (' +
+      '\'' + req.body.interfaceId + '\',' +
+      '\'' + req.body.tableName + '\',' +
+      '\'' + req.body.tableDescription + '\',' +
+      '\'' + req.body.subType + '\',' +
+      '\'' + req.body.fieldName + '\',' +
+      '\'' + req.body.fieldDescription + '\',' +
+      '\'' + req.body.dataType + '\',' +
+      req.body.fieldLength + ',' +
+      '\'' + req.body.outputType + '\',' +
+      req.body.outputLength + ',' +
+      '\'' + req.body.notation + '\'' + ');';
 
+    console.log(sSQL);
     dbconnection(function (connection) {
       connection
         .execute(sSQL)
@@ -62,6 +68,7 @@ module.exports = function () {
           res.json({ data: data, success: true })
         })
         .catch(error => {
+          console.log(error);
           res.status(500);
           res.json({ success: false, message: error });
         });
