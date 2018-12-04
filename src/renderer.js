@@ -1,4 +1,5 @@
 var app = require('./app');
+var currentUser = {};
 
 app.on('rendered', function (rendered) {
     $('#main').html(rendered);
@@ -28,6 +29,7 @@ $(document).ready(function () {
 
                     $.post('http://localhost:3000/user', formData)
                         .done(function (data) {
+                            currentUser = data.data;
                             app.emit('view-selected', 'main');
                             loadMain();
                         })
@@ -70,6 +72,7 @@ $(document).ready(function () {
                 }
 
             } else {
+                currentUser = data.data[0];
                 loadMain();
             }
         } else {
@@ -81,6 +84,7 @@ $(document).ready(function () {
 
 function loadAuditTrail() {
     app.emit('view-selected', 'audittrail');
+    $('#user-info-p').append(currentUser.FULLNAME);
 
     var columns = [
         { 'data': 'TimeStamp' },
@@ -93,6 +97,7 @@ function loadAuditTrail() {
     ];
 
     var table = $('#data-table-audit').DataTable({
+        order: [[ 0, 'desc' ]],
         dom: 'Bfrtip',
         buttons: {
             buttons: [
@@ -117,6 +122,7 @@ function loadAuditTrail() {
 
 function loadMain() {
     app.emit('view-selected', 'main');
+    $('#user-info').append(currentUser.FULLNAME);
 
     var columns = [
         { 'data': 'ID' },

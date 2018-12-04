@@ -13,13 +13,17 @@ module.exports = function () {
         var sSQL = 'SELECT AUDIT_TRAILS.TimeStamp, AUDIT_TRAILS.Action, USERS.FULLNAME, AUDIT_TRAILS.FieldChanged, AUDIT_TRAILS.NewValue, AUDIT_TRAILS.AffectedRecords, AUDIT_TRAILS.Comments ' + 
         'FROM USERS INNER JOIN AUDIT_TRAILS ON USERS.HOSTNAME = AUDIT_TRAILS.HostName;';
 
+        
+
         dbconnection(function (connection) {
             connection
                 .query(sSQL)
                 .then(data => {
+                    console.log(data);
                     res.json({ success: true, data: data });
                 })
                 .catch(error => {
+                    console.log(error);
                     res.json({ success: false, message: error });
                 });
         });

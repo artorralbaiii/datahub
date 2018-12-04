@@ -30,9 +30,9 @@ module.exports = function () {
   function updateRecords(req, res, next) {
 
     let arrIds = req.body.rows.map(obj => obj.ID);
-    let affectedRecordIds = req.body.rows.map(obj => '[ID: ' + obj.ID + ']' + ' - ' + '[Interface ID: ' + obj.interfaceId + ']');
+    let affectedRecordIds = req.body.rows.map(obj => '[ID: ' + obj.ID + ']' + ' - ' + '[Interface ID: ' + obj.InterfaceId + ']');
     let ids = arrIds.join(',');
-    let affectedRecords = affectedRecordIds.join('|');
+    let affectedRecords = affectedRecordIds.join('<br>');
     let sSQL = 'UPDATE INTERFACES SET [' + req.body.field + ']=\'' + req.body.value + '\' WHERE ID IN (' + ids + ');';
 
     dbconnection(function (connection) {
@@ -56,7 +56,6 @@ module.exports = function () {
                 res.json({ data: data, logs: logs, success: true });
               })
               .catch(error => {
-                console.log(error);
                 res.status(500);
                 res.json({ success: false, message: error });
               });
@@ -106,7 +105,6 @@ module.exports = function () {
                 res.json({ data: data, logs: logs, success: true });
               })
               .catch(error => {
-                console.log(error);
                 res.status(500);
                 res.json({ success: false, message: error });
               });

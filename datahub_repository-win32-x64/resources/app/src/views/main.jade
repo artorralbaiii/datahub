@@ -1,0 +1,106 @@
+div(class="row flex-column .container-1")
+    table(id="data-table" class="table table-striped table-bordered center" style="width:100%;")
+        thead
+            tr
+                th ID
+                th Interface ID
+                th Tbl Name
+                th Tbl Description
+                th Subtype
+                th Fld Name
+                th Fld Desc
+                th Data Type
+                th Length
+                th Output Type
+                th Output Length
+                th Notation
+        tfoot
+            tr
+                th ID
+                th Interface ID
+                th Tbl Name
+                th Tbl Description
+                th Subtype
+                th Fld Name
+                th Fld Desc
+                th Data Type
+                th Length
+                th Output Type
+                th Output Length
+                th Notation
+
+div(class="modal fade" id="dlg-update-sel-rows" tabindex="-1" role="dialog" aria-labelledby="dlg-update-sel-rows-lbl" aria-hidden="true")
+    div(class="modal-dialog" role="document")
+        div(class="modal-content")
+            div(class="modal-content")
+                div(class="modal-header")
+                    h5(class="modal-title" id="dlg-update-sel-rows-lbl") Update Selected Row(s)
+                    button(type="button" class="close" data-dismiss="modal" aria-label="Close")
+                        span(aria-hidden="true") &times;
+                div(class="modal-body")
+                    form(id="frm-update-param")
+                        div(class="form-group")
+                            label(for="lbl-field") Field
+                            select(class="form-control" id="fld-field" placeholder="Choose a field...")
+                        div(class="form-group") 
+                            label(for="fld-newvalue") New Value
+                            input(type="text" class="form-control" id="fld-newvalue" placeholder="New Value...")
+                        div(class="form-group") 
+                            label(for="fld-comments") Comments
+                            Textarea(type="text" class="form-control" id="fld-comments" placeholder="Comments...")
+                div(class="modal-footer")
+                    button(type="button" class="btn btn-secondary" data-dismiss="modal") Close
+                    button(id="btn-update" type="button" class="btn btn-primary" data-dismiss="modal") Update
+
+
+div(class="modal fade" id="dlg-add-record" tabindex="-1" role="dialog" aria-labelledby="dlg-add-record-lbl" aria-hidden="true")
+    div(class="modal-dialog modal-lg" role="document")
+        div(class="modal-content")
+            div(class="modal-content")
+                div(class="modal-header")
+                    h5(class="modal-title" id="dlg-add-record-lbl") New Record
+                    button(type="button" class="close" data-dismiss="modal" aria-label="Close")
+                        span(aria-hidden="true") &times;
+                div(class="modal-body")
+                    form(id="frm-add-record")
+                        div(class="row")
+                            div(class="col-md-6")
+                                div(class="form-group")
+                                    label(for="lbl-interface-id") Interface ID *
+                                    input(type="text" class="form-control form-control-sm" id="fld-interface-id" placeholder="Enter Interface ID...")
+                                    small(id="fld-interface-id-help" class="form-text text-danger d-none") Please enter Interface ID.
+                                div(class="form-group") 
+                                    label(for="fld-table-desc") Table Description
+                                    input(type="text" class="form-control form-control-sm" id="fld-table-desc" placeholder="Enter Table Description...")
+                                div(class="form-group") 
+                                    label(for="fld-fld-name") Field Name
+                                    input(type="text" class="form-control form-control-sm" id="fld-fld-name" placeholder="Enter Field Name...")
+                                div(class="form-group") 
+                                    label(for="fld-data-type") Data Type
+                                    input(type="text" class="form-control form-control-sm" id="fld-data-type" placeholder="Enter Data Type...")
+                                div(class="form-group") 
+                                    label(for="fld-output-type") Output Type
+                                    input(type="text" class="form-control form-control-sm" id="fld-output-type" placeholder="Enter Output Type...")
+                                div(class="form-group") 
+                                    label(for="fld-notation") Notation
+                                    input(type="text" class="form-control form-control-sm" id="fld-notation" placeholder="Enter Notation...")
+                            div(class="col-md-6")
+                                div(class="form-group") 
+                                    label(for="fld-table-name") Table Name
+                                    input(type="text" class="form-control form-control-sm" id="fld-table-name" placeholder="Enter Table Name...")
+                                div(class="form-group")
+                                    label(for="lbl-subtype") Subtype
+                                    input(type="text" class="form-control form-control-sm" id="fld-subtype" placeholder="Enter Subtype...")
+                                div(class="form-group")
+                                    label(for="lbl-fld-desc") Field Description
+                                    input(type="text" class="form-control form-control-sm" id="fld-fld-desc" placeholder="Enter Field Description...")
+                                div(class="form-group")
+                                    label(for="lbl-length") Length
+                                    input(type="number" class="form-control form-control-sm" id="fld-length" value="0" placeholder="Enter Length...")
+                                div(class="form-group")
+                                    label(for="lbl-output-length") Output Length
+                                    input(type="number" class="form-control form-control-sm" id="fld-output-length" value="0" placeholder="Enter Output Length...")
+                div(class="modal-footer")
+                    button(type="button" class="btn btn-secondary" data-dismiss="modal") Close
+                    button(id="btn-save" type="button" class="btn btn-primary" ) Save
+ 
