@@ -34,8 +34,6 @@ module.exports = function () {
             '\'' + req.body.email + '\',' +
             '\'' + req.body.fullname + '\');';
 
-        console.log(sSQL);
-
         dbconnection(function (connection) {
             connection
                 .execute(sSQL)
@@ -43,7 +41,6 @@ module.exports = function () {
                     res.json({ data: data, success: true })
                 })
                 .catch(error => {
-                    console.log(error);
                     res.status(500);
                     res.json({ success: false, message: error });
                 });

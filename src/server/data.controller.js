@@ -7,6 +7,7 @@ module.exports = function () {
   var controller = {
     getAll: getAll,
     newRecord: newRecord,
+    updateRecord: updateRecord,
     updateRecords: updateRecords
   };
 
@@ -119,5 +120,58 @@ module.exports = function () {
     });
 
   }
+
+
+  function updateRecord(req, res, next) {
+    let sSQL = 'UPDATE INTERFACES SET ' +
+      '[InterfaceId] = \'' + req.body.interfaceId + '\', ' +
+      '[TableName] = \'' + req.body.tableName + '\', ' +
+      '[TableDescription] = \'' + req.body.tableDescription + '\', ' +
+      '[Subtype] = \'' + req.body.subType + '\', ' +
+      '[FieldName] = \'' + req.body.fieldName + '\', ' +
+      '[FieldDescription] = \'' + req.body.fieldDescription + '\', ' +
+      '[DataType] = \'' + req.body.dataType + '\', ' +
+      '[Length] = \'' + req.body.fieldLength + '\', ' +
+      '[OutputType] = \'' + req.body.outputType + '\', ' +
+      '[OutputLength] = \'' + req.body.outputLength + '\', ' +
+      '[Notation] = \'' + req.body.notation + '\', ' +
+      '[OtherInfo] = \'' + req.body.otherInfo + '\' ' +
+      'WHERE ID = ' + req.params.id
+
+    dbconnection(function (connection) {
+      connection
+        .execute(sSQL)
+        .then(data => {
+
+          sSQL = 'INSERT INTO AUDIT_TRAILS ' +
+            '([HostName], [FieldChanged], [NewValue], [AffectedRecords], [Action], [Comments]) VALUES (' +
+            '\'' + os.hostname() + '\',' +
+            '\'N/A\',' +
+            '\'N/A\',' +
+            '\'[ID: ' + req.params.id + ']\',' +
+            '\'UPDATE\',' +
+            '\'Full record has been updated.\');';
+
+          dbconnection(function (connection) {
+            connection
+              .execute(sSQL)
+              .then(logs => {
+                res.json({ data: data, logs: logs, success: true });
+              })
+              .catch(error => {
+                res.status(500);
+                res.json({ success: false, message: error });
+              });
+          });
+
+        })
+        .catch(error => {
+          res.status(500);
+          res.json({ success: false, message: error });
+        });
+    });
+
+  }
+
 
 }

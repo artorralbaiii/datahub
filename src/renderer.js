@@ -97,7 +97,7 @@ function loadAuditTrail() {
     ];
 
     var table = $('#data-table-audit').DataTable({
-        order: [[ 0, 'desc' ]],
+        order: [[0, 'desc']],
         dom: 'Bfrtip',
         buttons: {
             buttons: [
@@ -110,7 +110,7 @@ function loadAuditTrail() {
                 { extend: 'copyHtml5', className: 'btn' },
                 { extend: 'csvHtml5', className: 'btn' }
             ]
-        }, 
+        },
         'ajax': 'http://localhost:3000/audit',
         'columns': columns,
         'drawCallback': function (settings) {
@@ -191,9 +191,10 @@ function loadMain() {
             alert('ERROR: ' + JSON.stringify(message));
         })
         .on('dblclick', 'tr', function () {
-            var data = table.row( this ).data();
-            alert( 'You clicked on '+data[0]+'\'s row' );
-            } );
+            var data = table.row(this).data();
+            setFields(data);
+            $('#dlg-add-record').modal('show');
+        });
 
     // Populate Options in 'Field' dropdown.
     $.each(columns.slice(1), function (key, value) {
@@ -246,6 +247,7 @@ function loadMain() {
         $('#spinner').show();
 
         var formData = {
+            id: $('#fld-id').val(),
             interfaceId: $('#fld-interface-id').val(),
             tableName: $('#fld-table-name').val(),
             tableDescription: $('#fld-table-desc').val(),
@@ -260,20 +262,71 @@ function loadMain() {
             otherInfo: $('#fld-other-info').val()
         };
 
-        $.post('http://localhost:3000/data/new', formData)
-            .done(function (data) {
-                if (data.success) {
-                    table.ajax.reload();
-                    $('#dlg-add-record').modal('hide');
-                } else {
-                    $('#spinner').hide();
-                    alert('ERROR: ' + JSON.stringify(data));
-                }
-            })
-            .fail(function (xhr, status, error) {
-                alert('ERROR: ' + JSON.stringify(error));
-            });
+        if (formData.id === '') {
+            $.post('http://localhost:3000/data/new', formData)
+                .done(function (data) {
+                    if (data.success) {
+                        table.ajax.reload();
+                        $('#dlg-add-record').modal('hide');
+                        clearFields();
+                    } else {
+                        $('#spinner').hide();
+                        alert('ERROR: ' + JSON.stringify(data));
+                    }
+                })
+                .fail(function (xhr, status, error) {
+                    alert('ERROR: ' + JSON.stringify(error));
+                });
+        } else {
+            $.post('http://localhost:3000/data/' + formData.id, formData)
+                .done(function (data) {
+                    if (data.success) {
+                        table.ajax.reload();
+                        $('#dlg-add-record').modal('hide');
+                        clearFields();
+                    } else {
+                        $('#spinner').hide();
+                        alert('ERROR: ' + JSON.stringify(data));
+                    }
+                })
+                .fail(function (xhr, status, error) {
+                    alert('ERROR: ' + JSON.stringify(error));
+                });
+        }
+
     });
+}
+
+function setFields(data) {
+    $('#fld-id').val(data.ID);
+    $('#fld-interface-id').val(data.InterfaceId);
+    $('#fld-table-name').val(data.TableName);
+    $('#fld-table-desc').val(data.TableDescription);
+    $('#fld-subtype').val(data.Subtype);
+    $('#fld-fld-name').val(data.FieldName);
+    $('#fld-fld-desc').val(data.FieldDescription);
+    $('#fld-data-type').val(data.DataType);
+    $('#fld-length').val(data.Length);
+    $('#fld-output-type').val(data.OutputType);
+    $('#fld-output-length').val(data.OutputLength);
+    $('#fld-notation').val(data.Notation);
+    $('#fld-other-info').val(data.OtherInfo);
+}
+
+function clearFields() {
+    $('#fld-id').val('');
+    $('#fld-interface-id').val('');
+    $('#fld-table-name').val('');
+    $('#fld-table-desc').val('');
+    $('#fld-subtype').val('');
+    $('#fld-fld-name').val('');
+    $('#fld-fld-desc').val('');
+    $('#fld-data-type').val('');
+    $('#fld-length').val(0);
+    $('#fld-output-type').val('');
+    $('#fld-output-length').val(0);
+    $('#fld-notation').val('');
+    $('#fld-other-info').val('');
 }
 
 

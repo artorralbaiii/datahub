@@ -15,6 +15,7 @@ app.use(bodyParser.json());
 app.get('/data', data.getAll);
 app.post('/data', data.updateRecords);
 app.post('/data/new', data.newRecord);
+app.post('/data/:id', data.updateRecord);
 
 // USER APIs
 app.get('/user', user.getProfile);
