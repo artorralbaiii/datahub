@@ -136,7 +136,8 @@ function loadMain() {
         { 'data': 'Length' },
         { 'data': 'OutputType' },
         { 'data': 'OutputLength' },
-        { 'data': 'Notation' }
+        { 'data': 'Notation' },
+        { 'data': 'OtherInfo' }
     ];
 
     var selectedRecords = [];
@@ -188,7 +189,11 @@ function loadMain() {
         })
         .on('error.dt', function (e, settings, techNote, message) {
             alert('ERROR: ' + JSON.stringify(message));
-        });
+        })
+        .on('dblclick', 'tr', function () {
+            var data = table.row( this ).data();
+            alert( 'You clicked on '+data[0]+'\'s row' );
+            } );
 
     // Populate Options in 'Field' dropdown.
     $.each(columns.slice(1), function (key, value) {
@@ -251,7 +256,8 @@ function loadMain() {
             fieldLength: $('#fld-length').val(),
             outputType: $('#fld-output-type').val(),
             outputLength: $('#fld-output-length').val(),
-            notation: $('#fld-notation').val()
+            notation: $('#fld-notation').val(),
+            otherInfo: $('#fld-other-info').val()
         };
 
         $.post('http://localhost:3000/data/new', formData)

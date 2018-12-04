@@ -71,7 +71,7 @@ module.exports = function () {
 
   function newRecord(req, res, next) {
     let sSQL = 'INSERT INTO INTERFACES ' +
-      '([InterfaceId], [TableName], [TableDescription], [Subtype], [FieldName], [FieldDescription], [DataType], [Length], [OutputType], [OutputLength], [Notation]) VALUES (' +
+      '([InterfaceId], [TableName], [TableDescription], [Subtype], [FieldName], [FieldDescription], [DataType], [Length], [OutputType], [OutputLength], [Notation], [OtherInfo]) VALUES (' +
       '\'' + req.body.interfaceId + '\',' +
       '\'' + req.body.tableName + '\',' +
       '\'' + req.body.tableDescription + '\',' +
@@ -82,7 +82,8 @@ module.exports = function () {
       req.body.fieldLength + ',' +
       '\'' + req.body.outputType + '\',' +
       req.body.outputLength + ',' +
-      '\'' + req.body.notation + '\'' + ');';
+      '\'' + req.body.notation + '\',' +
+      '\'' + req.body.otherInfo + '\'' + ');';
 
     dbconnection(function (connection) {
       connection

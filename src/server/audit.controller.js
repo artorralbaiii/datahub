@@ -19,11 +19,9 @@ module.exports = function () {
             connection
                 .query(sSQL)
                 .then(data => {
-                    console.log(data);
                     res.json({ success: true, data: data });
                 })
                 .catch(error => {
-                    console.log(error);
                     res.json({ success: false, message: error });
                 });
         });
