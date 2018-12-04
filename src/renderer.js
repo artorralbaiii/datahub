@@ -29,7 +29,11 @@ $(document).ready(function () {
 
                     $.post('http://localhost:3000/user', formData)
                         .done(function (data) {
-                            currentUser = data.data;
+                            currentUser = {
+                                BRID: formData.brid,
+                                FULLNAME: formData.fullname,
+                                EMAIL: formData.email
+                            };
                             app.emit('view-selected', 'main');
                             loadMain();
                         })
