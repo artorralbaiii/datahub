@@ -206,7 +206,28 @@ function loadMain() {
     });
 
     // Click event for Update Button
-    $('#btn-update').bind('click', function () {
+    $('#btn-update').bind('click', function (e) {
+
+        if ($('#fld-newvalue').val().trim() === '') {
+            $('#fld-newvalue-help').removeClass('d-none');
+            e.preventDefault();
+            return;
+        } else {
+            if (!$('#fld-newvalue-help').hasClass('d-none')) {
+                $('#fld-newvalue-help').addClass('d-none');
+            }
+        }
+
+        if ($('#fld-comments').val().trim() === '') {
+            $('#fld-comments-help').removeClass('d-none');
+            e.preventDefault();
+            return;
+        } else {
+            if (!$('#fld-comments-help').hasClass('d-none')) {
+                $('#fld-comments-help').addClass('d-none');
+            }
+        }
+
         $('#spinner').show();
         var formData = {
             field: '',
@@ -226,6 +247,9 @@ function loadMain() {
                     table.rows().deselect();
                     selectedRecords = [];
                     table.ajax.reload();
+                    $('#dlg-update-sel-rows').modal('hide');
+                    $('#fld-newvalue').val('');
+                    $('#fld-comments').val('');
                 } else {
                     $('#spinner').hide();
                     alert('ERROR: ' + JSON.stringify(data));

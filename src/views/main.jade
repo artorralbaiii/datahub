@@ -1,7 +1,7 @@
 div(class="row")
     div(class="col-md-6 col-sm-6 col-lg-6")
         legend
-            h1 Data Hub Repository
+            h1 Data Hub Object Repository
     div(class="col-md-6 col-sm-6 col-lg-6")
         p(id="user-info" class="text-right") Current User: 
 
@@ -55,14 +55,16 @@ div(class="modal fade" id="dlg-update-sel-rows" tabindex="-1" role="dialog" aria
                             label(for="lbl-field") Field
                             select(class="form-control" id="fld-field" placeholder="Choose a field...")
                         div(class="form-group") 
-                            label(for="fld-newvalue") New Value
+                            label(for="fld-newvalue") New Value *
                             input(type="text" class="form-control" id="fld-newvalue" placeholder="New Value...")
+                            small(id="fld-newvalue-help" class="form-text text-danger d-none") Please enter New Value.
                         div(class="form-group") 
-                            label(for="fld-comments") Comments
+                            label(for="fld-comments") Comments *
                             Textarea(type="text" class="form-control" id="fld-comments" placeholder="Comments...")
+                            small(id="fld-comments-help" class="form-text text-danger d-none") Please enter Comments.
                 div(class="modal-footer")
                     button(type="button" class="btn btn-secondary" data-dismiss="modal") Close
-                    button(id="btn-update" type="button" class="btn btn-primary" data-dismiss="modal") Update
+                    button(id="btn-update" type="button" class="btn btn-primary") Update
 
 
 div(class="modal fade" id="dlg-add-record" tabindex="-1" role="dialog" aria-labelledby="dlg-add-record-lbl" aria-hidden="true")
@@ -115,7 +117,7 @@ div(class="modal fade" id="dlg-add-record" tabindex="-1" role="dialog" aria-labe
                                     input(type="number" class="form-control form-control-sm" id="fld-output-length" value="0" placeholder="Enter Output Length...")
                                 div(class="form-group")
                                     label(for="lbl-other-info") Other Info
-                                    input(type="text" class="form-control form-control-sm" id="fld-other-info" placeholder="Enter Other Info...")
+                                    textarea(class="form-control form-control-sm" id="fld-other-info" placeholder="Enter Other Info...")
                 div(class="modal-footer")
                     button(type="button" class="btn btn-secondary" data-dismiss="modal") Close
                     button(id="btn-save" type="button" class="btn btn-primary" ) Save

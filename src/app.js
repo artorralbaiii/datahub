@@ -12,7 +12,7 @@ var App = function () {
     this.on('view-selected', function (viewName) {
         var view = new View(viewName);
         this.emit('rendered', view.toHtml());
-        document.title = 'Data Hub Repository - ' + headerTitleMapping[viewName];
+        document.title = 'Data Hub Object Repository - ' + headerTitleMapping[viewName];
     });
 }
 
