@@ -72,7 +72,7 @@ module.exports = function () {
 
   function newRecord(req, res, next) {
     let sSQL = 'INSERT INTO INTERFACES ' +
-      '([InterfaceId], [TableName], [TableDescription], [Subtype], [FieldName], [FieldDescription], [DataType], [Length], [OutputType], [OutputLength], [Notation], [OtherInfo]) VALUES (' +
+      '([InterfaceId], [TableName], [TableDescription], [Subtype], [FieldName], [FieldDescription], [DataType], [Length], [OutputType], [OutputLength], [Notation], [InterfaceName], [OtherInfo]) VALUES (' +
       '\'' + req.body.interfaceId + '\',' +
       '\'' + req.body.tableName + '\',' +
       '\'' + req.body.tableDescription + '\',' +
@@ -84,6 +84,7 @@ module.exports = function () {
       '\'' + req.body.outputType + '\',' +
       req.body.outputLength + ',' +
       '\'' + req.body.notation + '\',' +
+      '\'' + req.body.interfaceName + '\',' +
       '\'' + req.body.otherInfo + '\'' + ');';
 
     dbconnection(function (connection) {
@@ -135,6 +136,7 @@ module.exports = function () {
       '[OutputType] = \'' + req.body.outputType + '\', ' +
       '[OutputLength] = \'' + req.body.outputLength + '\', ' +
       '[Notation] = \'' + req.body.notation + '\', ' +
+      '[InterfaceName] = \'' + req.body.interfaceName + '\', ' +
       '[OtherInfo] = \'' + req.body.otherInfo + '\' ' +
       'WHERE ID = ' + req.params.id
 

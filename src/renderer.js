@@ -152,6 +152,7 @@ function loadMain() {
     var columns = [
         { 'data': 'ID' },
         { 'data': 'InterfaceId' },
+        { 'data': 'InterfaceName' },
         { 'data': 'TableName' },
         { 'data': 'TableDescription' },
         { 'data': 'Subtype' },
@@ -162,7 +163,7 @@ function loadMain() {
         { 'data': 'OutputType' },
         { 'data': 'OutputLength' },
         { 'data': 'Notation' },
-        { 'data': 'OtherInfo' }
+        { 'data': 'OtherInfo' }        
     ];
     
     var selectedRecords = [];
@@ -296,6 +297,16 @@ function loadMain() {
                 }
             }
 
+            if ($('#fld-interface-name').val().trim() === '') {
+                $('#fld-interface-name-help').removeClass('d-none');
+                e.preventDefault();
+                return;
+            } else {
+                if (!$('#fld-interface-name-help').hasClass('d-none')) {
+                    $('#fld-interface-name-help').addClass('d-none');
+                }
+            }
+
             $('#spinner').show();
 
             var formData = {
@@ -311,7 +322,8 @@ function loadMain() {
                 outputType: $('#fld-output-type').val(),
                 outputLength: $('#fld-output-length').val(),
                 notation: $('#fld-notation').val(),
-                otherInfo: $('#fld-other-info').val()
+                otherInfo: $('#fld-other-info').val(),
+                interfaceName: $('#fld-interface-name').val()
             };
 
             if (formData.id === '') {
@@ -365,6 +377,7 @@ function setFields(data) {
     $('#fld-output-length').val(data.OutputLength);
     $('#fld-notation').val(data.Notation);
     $('#fld-other-info').val(data.OtherInfo);
+    $('#fld-interface-name').val(data.OtherInfo);
 }
 
 function clearFields() {
@@ -381,6 +394,5 @@ function clearFields() {
     $('#fld-output-length').val(0);
     $('#fld-notation').val('');
     $('#fld-other-info').val('');
+    $('#fld-interface-name').val('');
 }
-
-

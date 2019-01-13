@@ -14,6 +14,7 @@ div(id="container-interface" class="row flex-column .container-1")
             tr
                 th ID
                 th Interface ID
+                th Interface Name
                 th Tbl Name
                 th Tbl Description
                 th Subtype
@@ -29,6 +30,7 @@ div(id="container-interface" class="row flex-column .container-1")
             tr
                 th ID
                 th Interface ID
+                th Interface Name
                 th Tbl Name
                 th Tbl Description
                 th Subtype
@@ -106,6 +108,10 @@ div(class="modal fade" id="dlg-add-record" tabindex="-1" role="dialog" aria-labe
                                     label(for="lbl-interface-id") Interface ID *
                                     input(type="text" class="form-control form-control-sm" id="fld-interface-id" placeholder="Enter Interface ID...")
                                     small(id="fld-interface-id-help" class="form-text text-danger d-none") Please enter Interface ID.
+                                div(class="form-group")
+                                    label(for="lbl-interface-name") Interface Name *
+                                    input(type="text" class="form-control form-control-sm" id="fld-interface-name" placeholder="Enter Interface Name...")
+                                    small(id="fld-interface-name-help" class="form-text text-danger d-none") Please enter Interface Name.
                                 div(class="form-group") 
                                     label(for="fld-table-desc") Table Description
                                     input(type="text" class="form-control form-control-sm" id="fld-table-desc" placeholder="Enter Table Description...")
