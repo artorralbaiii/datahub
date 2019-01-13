@@ -7,7 +7,7 @@ div(class="row")
 
 hr
 
-div(class="row flex-column .container-1")
+div(id="container-interface" class="row flex-column .container-1")
     table(id="data-table" class="display compact" style="width:100%;")
         <caption>Interface Objects</caption>
         thead
@@ -40,6 +40,28 @@ div(class="row flex-column .container-1")
                 th Output Length
                 th Notation
                 th Other Info
+                
+div(id="container-audit" class="row flex-column .container-1")
+    table(id="data-table-audit" class="display compact" style="width:100%;")
+        <caption>Audit Trail</caption>
+        thead
+            tr
+                th Time Stamp
+                th Action
+                th Updated By
+                th Field Changed
+                th New Value
+                th Affected Records
+                th Comments
+        tfoot
+            tr
+                th Time Stamp
+                th Action
+                th Updated By
+                th Field Changed
+                th New Value
+                th Affected Records
+                th Comments
 
 div(class="modal fade" id="dlg-update-sel-rows" tabindex="-1" role="dialog" aria-labelledby="dlg-update-sel-rows-lbl" aria-hidden="true")
     div(class="modal-dialog" role="document")
