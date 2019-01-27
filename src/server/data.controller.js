@@ -17,7 +17,7 @@ module.exports = function () {
 
     dbconnection(function (connection) {
       connection
-        .query('SELECT * FROM INTERFACES')
+        .query('SELECT * FROM INTERFACES_ACT')
         .then(data => {
           res.json({ success: true, data: data });
         })
@@ -31,7 +31,7 @@ module.exports = function () {
   function updateRecords(req, res, next) {
 
     let arrIds = req.body.rows.map(obj => obj.ID);
-    let affectedRecordIds = req.body.rows.map(obj => '[ID: ' + obj.ID + ']' + ' - ' + '[Interface ID: ' + obj.InterfaceId + ']');
+    let affectedRecordIds = req.body.rows.map(obj => '[ID: ' + obj.ID + ']' + ' - ' + '[Int.ID: ' + obj.InterfaceId + ']' + ' - ' + '[OldValue: ' + obj[req.body.field] + ']');
     let ids = arrIds.join(',');
     let affectedRecords = affectedRecordIds.join('<br>');
     let sSQL = 'UPDATE INTERFACES SET [' + req.body.field + ']=\'' + req.body.value + '\' WHERE ID IN (' + ids + ');';
@@ -72,7 +72,7 @@ module.exports = function () {
 
   function newRecord(req, res, next) {
     let sSQL = 'INSERT INTO INTERFACES ' +
-      '([InterfaceId], [TableName], [TableDescription], [Subtype], [FieldName], [FieldDescription], [DataType], [Length], [OutputType], [OutputLength], [Notation], [InterfaceName], [OtherInfo]) VALUES (' +
+      '([InterfaceId], [TableName], [TableDescription], [Subtype], [FieldName], [FieldDescription], [DataType], [Length], [OutputType], [OutputLength], [Notation], [InterfaceName], [OtherInfo], [Status]) VALUES (' +
       '\'' + req.body.interfaceId + '\',' +
       '\'' + req.body.tableName + '\',' +
       '\'' + req.body.tableDescription + '\',' +
@@ -85,7 +85,7 @@ module.exports = function () {
       req.body.outputLength + ',' +
       '\'' + req.body.notation + '\',' +
       '\'' + req.body.interfaceName + '\',' +
-      '\'' + req.body.otherInfo + '\'' + ');';
+      '\'' + req.body.otherInfo + '\'' + ', \'Active\');';
 
     dbconnection(function (connection) {
       connection

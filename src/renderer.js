@@ -120,7 +120,7 @@ function loadAuditTrail() {
 
         tableAuditTrail = $('#data-table-audit').DataTable({
             order: [[0, 'desc']],
-            dom: 'Bfrtip',
+            dom: 'lBfrtip',
             buttons: {
                 buttons: [
                     {
@@ -148,7 +148,7 @@ function loadAuditTrail() {
 function loadMain() {
     $('#container-audit').hide();
     $('#container-interface').show();
-    
+
     var columns = [
         { 'data': 'ID' },
         { 'data': 'InterfaceId' },
@@ -163,16 +163,32 @@ function loadMain() {
         { 'data': 'OutputType' },
         { 'data': 'OutputLength' },
         { 'data': 'Notation' },
-        { 'data': 'OtherInfo' }        
+        { 'data': 'OtherInfo' }
     ];
-    
+
     var selectedRecords = [];
-    
+
     if (initMain) {
         $('#user-info').append(currentUser.FULLNAME);
         initMain = false;
+
+        $('#data-table thead tr').clone(true).appendTo('#data-table thead');
+        $('#data-table thead tr:eq(1) th').each(function (i) {
+            var title = $(this).text();
+            $(this).html('<input type="text" placeholder="Search ' + title + '" />');
+
+            $('input', this).on('keyup change', function () {
+                if (table.column(i).search() !== this.value) {
+                    table
+                        .column(i)
+                        .search(this.value)
+                        .draw();
+                }
+            });
+        });
+
+
         var table = $('#data-table').DataTable({
-            dom: 'Bfrtip',
             buttons: {
                 buttons: [
                     {
@@ -201,12 +217,15 @@ function loadMain() {
                     { extend: 'csvHtml5', className: 'btn' }
                 ]
             },
+            dom: 'lBfrtip',
             select: 'multi',
             'ajax': 'http://localhost:3000/data',
             'columns': columns,
             'drawCallback': function (settings) {
                 $('#spinner').hide();
-            }
+            },
+            orderCellsTop: true,
+            fixedHeader: true
         });
 
         table
@@ -377,7 +396,7 @@ function setFields(data) {
     $('#fld-output-length').val(data.OutputLength);
     $('#fld-notation').val(data.Notation);
     $('#fld-other-info').val(data.OtherInfo);
-    $('#fld-interface-name').val(data.OtherInfo);
+    $('#fld-interface-name').val(data.InterfaceName);
 }
 
 function clearFields() {

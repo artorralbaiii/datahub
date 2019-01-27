@@ -51,3 +51,14 @@ tr.odd, tr.even {
     to {transform: rotate(359deg);}
  }
 
+.dataTables_wrapper .dt-buttons {
+margin-left: 20px;
+}
+
+thead input {
+    width: 100%;
+}
+
+#container-audit {
+    display: none;
+}

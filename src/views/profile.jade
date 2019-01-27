@@ -1,17 +1,21 @@
 div(class="row" id="profile")
-    form(id="frm-profile")
-        legend Profile Setup
-        div(class="form-group") 
-            label(for="fld-p-brid") BRID
-            input(type="text" class="form-control form-control-sm" id="fld-p-brid" placeholder="Enter BRID...")
-            small(id="fld-p-brid-help" class="form-text text-danger d-none") Please enter BRID.
-        div(class="form-group") 
-            label(for="fld-p-email") Email
-            input(type="email" class="form-control form-control-sm" id="fld-p-email" placeholder="Enter email...")
-            small(id="fld-p-email-help" class="form-text text-danger d-none") Please enter email.
-        div(class="form-group")
-            label(for="lbl-p-name") Fullname
-            input(type="text" class="form-control form-control-sm" id="fld-p-name" placeholder="Enter Full Name...")
-            small(id="fld-p-name-help" class="form-text text-danger d-none") Please enter full name.
-        div(class="form-group")
-            button(id="btn-p-save" type="button" class="btn btn-success" ) Save
+    div(class="col-md-4")
+        form(id="frm-profile")
+            legend Setup your profile.
+            div(class="form-group") 
+                label(for="fld-p-brid") BRID
+                input(type="text" class="form-control form-control-sm" id="fld-p-brid" placeholder="Enter BRID...")
+                small(id="fld-p-brid-help" class="form-text text-danger d-none") Please enter BRID.
+            div(class="form-group") 
+                label(for="fld-p-email") Email
+                input(type="email" class="form-control form-control-sm" id="fld-p-email" placeholder="Enter email...")
+                small(id="fld-p-email-help" class="form-text text-danger d-none") Please enter email.
+            div(class="form-group")
+                label(for="lbl-p-name") Fullname
+                input(type="text" class="form-control form-control-sm" id="fld-p-name" placeholder="Enter Full Name...")
+                small(id="fld-p-name-help" class="form-text text-danger d-none") Please enter full name.
+            div(class="form-group")
+                button(id="btn-p-save" type="button" class="btn btn-success" ) Save
+    div(class="col-md-8")
+        h1 Data Hub Object Repository
+        p A centralize application that maintains all the interfaces information. Using this application you can easily identify the impacted objects for a given change requirements. It also has an audit trail to track changes on the objects.
